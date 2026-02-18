@@ -184,6 +184,8 @@ class AutoControl{
     void set_para(double goalx, double goal_y, double rad, double vel, double acc, double dec);
     void set_para2(double path_x[4], double path_y[4], double rad, double vel, double acc, double dec);
 
+    int spear_num = 1; 
+
     private:
     coords tar_posi_ = {0.0,0.0,0.0};
     coords tar_posi2_ = {0.0,0.0,0.0};

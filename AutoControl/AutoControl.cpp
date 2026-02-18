@@ -373,7 +373,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
                 if(flag_retry){
                     phase = 60;//ラック前
                 }else{
-                    phase = 1;
+                    phase = 3;
                 } 
             }
         }
@@ -440,9 +440,12 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
             tar_posi_rack_x = spear_posi_x[5];
         }
         // if ((nextPhase & PUSH_BUTTON) == PUSH_BUTTON) {
-            motion.setPathNum(0, 0);
-            setConvPara(0.01, 0.998);
-            set_para(tar_posi_rack_x, tar_posi_rack_y, M_PI/2, 0.3, 1.00, 1.00);
+            // motion.setPathNum(0, 0);
+            // setConvPara(0.01, 0.998);
+            // set_para(tar_posi_rack_x, tar_posi_rack_y, M_PI/2, 0.3, 1.00, 1.00);
+            double path_x[4] = {gPosi.x, spear_posi_x[spear_num],spear_posi_x[spear_num],spear_posi_x[spear_num]};
+            double path_y[4] = {gPosi.y, 1,0.8,0.52};
+            set_para2(path_x, path_y, M_PI/2, 0.5, 3.00, 3.00);
             phase = 301;
         // }
     break;

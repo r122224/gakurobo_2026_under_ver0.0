@@ -2666,7 +2666,7 @@ sprintf(str,"[INFO]bno on\n");
                     }
                     if(flag_lrtb_in){
                         if(autonomous.phase == 200 || autonomous.phase == 3 || autonomous.phase == 302 || autonomous.phase == 304 || autonomous.phase == 315 || autonomous.phase == 306 || autonomous.phase == 325 || autonomous.phase == 4){//ラック衝突
-                            // lrtbPosi.x = distance_back;
+                            lrtbPosi.x = distance_back;
                             lrtbPosi.y = distance_in + 0.15 - 0.025;//+ラックの距離
                             // platform.setAxisPosi(lrtbPosi.x, POSIX);
                             // if(fabs(gPosi.y - lrtbPosi.y) < lrtb_diff_limit){
@@ -4103,9 +4103,7 @@ sprintf(str,"[INFO]bno on\n");
                     M[SDcount] = lrtbPosi.y;
                     O[SDcount] = lrtbPosi.x;
                     P[SDcount] = lrtbPosi.z;
-                    M[SDcount] = lpms.;
-                    O[SDcount] = lrtbPosi.x;
-                    P[SDcount] = lrtbPosi.z;
+                    
                     
                     S[SDcount] = normalspeed_x;
                     T[SDcount] = normalspeed_y;

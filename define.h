@@ -108,7 +108,7 @@ struct pidGain {
 //学ロボ2026
 #define RED 0
 #define BLUE 1
-#define COLLECT_NUM 4
+#define COLLECT_NUM 3
 
 // //学ロボ2025
 // #define OFFENSE 0

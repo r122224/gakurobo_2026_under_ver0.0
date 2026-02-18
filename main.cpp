@@ -353,7 +353,7 @@ int obj_state[12] = {//状態
 
 int obj_state_test[12] = {//状態
     2, 1, 0,
-    0, 2, 3,
+    0, 0, 3,
     2, 0, 0,
     2, 0, 1
 };
@@ -874,7 +874,8 @@ void timer_warikomi(){
     timer_count++;
 
     
-    if(!flag_int){
+    // if(!flag_int){
+    if(1){
         flag_int = true;
         flag_con_tuusin = true;
         flag_limitcomm = true;
@@ -1865,8 +1866,8 @@ sprintf(str,"[INFO]bno on\n");
     // }
 
     if (flag_int) {//INT_TIME毎に処理される．フラグ処理
-        interval_time = timer.read_ms();
-        timer.reset();
+        // interval_time = timer.read_ms();
+        // timer.reset();
         interval_sum += interval_time;
         // printf("time:%d  \n",interval_time);
         // sprintf(str,"time:%d  \n",userButton.read());
@@ -2205,7 +2206,7 @@ sprintf(str,"[INFO]bno on\n");
             //   "%d,%lf,%lf,%lf,,%lf,%lf,%lf,,%lf,%d,%d,%lf,%d,%lf,%lf,%lf,,%lf,%lf,,%lf,%lf,%lf,%d,%d,%lf,%lf,%d,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%d,%d,%d,%d\n",
             //   e[i], A[i], B[i], C[i], D[i], E[i], F[i], K[i], a[i], b[i], G[i], d[i], H1[i], I[i], J[i], L4[i], N[i], M[i], O[i], P[i], f[i] ,g[i],Q[i],R[i],f[i],S[i],T[i],U[i],V[i],W[i],X[i],Y[i],h[i],i_[i],j[i],k[i]);
             // sprintf(str,"%d,%d,%lf,%lf,%lf,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",e[i],n[i],A[i],B[i],C[i],l[i],m[i],f[i],g[i],j[i],k[i],h[i],i_[i],a[i]);
-                sprintf(str,"%d,%d,%d,%lf,%lf,%lf,,%lf,%lf,%lf,,%lf,%lf,%lf,%lf,%lf,,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,,%lf,%lf,%lf,,%d,%d,,%d,%d,%d,%d,%d,%d,%lf,%lf,%lf ,%lf,%lf\n",e[i], a[i], d[i], A[i], B[i], C[i], D[i], E[i], F[i], M[i], O[i], P[i], N[i], L4[i], g[i], f[i], h[i], j[i], p[i], k[i], l[i], m[i], n[i], o[i], V[i], R[i], W[i],q[i], r[i],s[i],t[i],u[i],v[i],r[i],w[i],X[i],Y[i],Z[i],Q[i],R[i]);
+                sprintf(str,"%d,%d,%d,%lf,%lf,%lf,,%lf,%lf,%lf,,%lf,%lf,%lf,%lf,%lf,,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,,%lf,%lf,%lf,,%d,%d,,%d,%d,%d,%d,%d,%d,%lf,%lf,%lf ,%lf,%lf\n",e[i], a[i], d[i], A[i], B[i], C[i], D[i], E[i], F[i], M[i], O[i], P[i], N[i], L4[i], g[i], f[i], h[i], j[i], p[i], k[i], l[i], m[i], n[i], o[i], V[i], R[i], W[i],q[i], r[i],s[i],t[i],u[i],v[i],r[i],w[i],X[i],Y[i],Z[i],Q[i],G[i]);
                 mySD.write_logdata(str);
                 i++;
             }
@@ -3787,17 +3788,17 @@ sprintf(str,"[INFO]bno on\n");
 
                 // front_syusoku = false;//130
                 if(ref_lift_front_posi - front_lift_posi > 80){
-                    roboclawCmd0 = ms_qpps(0.6,500,0.026,1.0);
+                    roboclawCmd0 = ms_qpps(1.0,500,0.026,1.0);
                     front_syusoku = false;
                 }else if(ref_lift_front_posi - front_lift_posi < -80){
-                    roboclawCmd0 = ms_qpps(-0.6,500,0.026,1.0);
+                    roboclawCmd0 = ms_qpps(-1.0,500,0.026,1.0);
                     front_syusoku = false;
                 }else if(abs(ref_lift_front_posi - front_lift_posi) < 5){
                     roboclawCmd0 = 0;
                     front_syusoku = true;
                 }else{
                     front_syusoku = false;
-                    double vel = PID_lift_front_up.getCmd(ref_lift_front_posi, front_lift_posi, 0.5);
+                    double vel = PID_lift_front_up.getCmd(ref_lift_front_posi, front_lift_posi, 0.6);
                     roboclawCmd0 = ms_qpps(vel,500,0.026,1.0);
                 }
                 if(roboclawCmd0 > 0){
@@ -3835,17 +3836,17 @@ sprintf(str,"[INFO]bno on\n");
 
                 // back_syusoku = false;
                 if(ref_lift_back_posi - back_lift_posi > 80){
-                    roboclawCmd1 = ms_qpps(0.6,500,0.026,1.0);
+                    roboclawCmd1 = ms_qpps(1.0,500,0.026,1.0);
                     back_syusoku = false;
                 }else if(ref_lift_back_posi - back_lift_posi < -80){
-                    roboclawCmd1 = ms_qpps(-0.6,500,0.026,1.0);
+                    roboclawCmd1 = ms_qpps(-1.0,500,0.026,1.0);
                     back_syusoku = false;
                 }else if(abs(ref_lift_back_posi - back_lift_posi) < 5){
                     roboclawCmd1 = 0;
                     front_syusoku = true;
                 }else{
                     back_syusoku = false;
-                    double vel = PID_lift_back_up.getCmd(ref_lift_back_posi, back_lift_posi, 0.5);
+                    double vel = PID_lift_back_up.getCmd(ref_lift_back_posi, back_lift_posi, 0.6);
                     roboclawCmd1 = ms_qpps(vel,500,0.026,1.0);
                 }
                 if(roboclawCmd1 > 0){
@@ -4096,8 +4097,13 @@ sprintf(str,"[INFO]bno on\n");
                     //   M[SDcount] = autonomous.lim_refVz();
                     //   c[SDcount] = autonomous.acc_process();
                     d[SDcount] = autonomous.syusoku;
-                    e[SDcount] = interval_time;
+                    // e[SDcount] = interval_time;
+                    e[SDcount] = timer.read_ms();
+
                     M[SDcount] = lrtbPosi.y;
+                    O[SDcount] = lrtbPosi.x;
+                    P[SDcount] = lrtbPosi.z;
+                    M[SDcount] = lpms.;
                     O[SDcount] = lrtbPosi.x;
                     P[SDcount] = lrtbPosi.z;
                     
@@ -4139,7 +4145,7 @@ sprintf(str,"[INFO]bno on\n");
                     Z[SDcount] = ref_lift_back_posi;
 
                     Q[SDcount] = front_lift_posi;
-                    R[SDcount] = back_lift_posi;
+                    G[SDcount] = back_lift_posi;
 
 
                     // IQ0[SDcount] = platform.Iq_meas0;
@@ -4395,10 +4401,10 @@ sprintf(str,"[INFO]bno on\n");
         send_data[0] = autonomous.send_num;
         send_data[1] = air_state;
         send_data[2] = KFS_height_state;
-        send_data[3] = 4;//also_KFS_hold_num
+        send_data[3] = 3;//also_KFS_hold_num
         send_data[4] = lrtb_check;
-        send_data[5] = (int(front_lift_posi) & 0b000000111111);
-        send_data[6] = (int(front_lift_posi) & 0b111111000000) >> 6;
+        send_data[5] = (int(abs(front_lift_posi)) & 0b000000111111);
+        send_data[6] = (int(abs(front_lift_posi)) & 0b111111000000) >> 6;
          // send_data[2] = front_lift_posi * 10;
 
         //0個目：0->初期，1->ハンド展開，

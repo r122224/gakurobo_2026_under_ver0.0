@@ -4,7 +4,7 @@
 #include <cmath>
 #include <cstdio>
 
-extern coords gPosi;//自己位置　スタート
+extern coords gPosi;//自己位置 スタート
 extern coords tar_Posi;//目標場所
 extern field cubePosi;
 extern field3 cubePosi3;
@@ -65,9 +65,9 @@ coords AutoControl::pathTrackingMode(int mode, int state, int nextPhase, bool d_
 
   syusoku = motion.calcRefvel();
 
-//   if(!flag_curve) syusoku = motion.calcRefvel(); // 収束していれば　1　が返ってくる
+//   if(!flag_curve) syusoku = motion.calcRefvel(); // 収束していれば 1 が返ってくる
   //if(!flag_curve) syusoku = motion.calcRefvel_DWA();
-//   else syusoku = motion.calcRefvel_curve(); // 収束していれば　1　が返ってくる
+//   else syusoku = motion.calcRefvel_curve(); // 収束していれば 1 が返ってくる
 
 //   if(phase == 7 && (pathNum == 7)){
 //     if(syusoku == 2) syusoku = 1;
@@ -358,7 +358,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
     //2:エリア2
     //3:エリア3
     //
-    case 0://初期動作　作成
+    case 0://初期動作 作成
         send_num = 0;
         motion.setPathNum(0, 0);
         setConvPara(0.05, 0.992);
@@ -443,9 +443,23 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
             // motion.setPathNum(0, 0);
             // setConvPara(0.01, 0.998);
             // set_para(tar_posi_rack_x, tar_posi_rack_y, M_PI/2, 0.3, 1.00, 1.00);
-            double path_x[4] = {gPosi.x, spear_posi_x[spear_num],spear_posi_x[spear_num],spear_posi_x[spear_num]};
-            double path_y[4] = {gPosi.y, 1,0.8,0.52};
-            set_para2(path_x, path_y, M_PI/2, 0.5, 3.00, 3.00);
+            // double path_x[4] = {gPosi.x, spear_posi_x[spear_num],spear_posi_x[spear_num],spear_posi_x[spear_num]};
+            // double path_y[4] = {gPosi.y, 1,0.8,0.52};
+            // set_para2(path_x, path_y, M_PI/2, 0.5, 3.00, 3.00);
+            gpath_x[0] = gPosi.x;
+            gpath_x[1] = spear_posi_x[spear_num];
+            gpath_x[2] = spear_posi_x[spear_num];
+            gpath_x[3] = spear_posi_x[spear_num];
+            gpath_y[0] = gPosi.y;
+            gpath_y[1] = 1;
+            gpath_y[2] = 0.8;
+            // gpath_y[3] = 0.52;
+            gpath_y[3] = 0.45;
+
+            // gpath_x[] = {gPosi.x, spear_posi_x[spear_num],spear_posi_x[spear_num],spear_posi_x[spear_num]};
+            // // gpath_x[] = {0,0,0,0};
+            // gpath_y[] = {gPosi.y, 1,0.8,0.52};
+            set_para2(gpath_x, gpath_y, M_PI/2, 0.5, 3.00, 3.00);
             phase = 301;
         // }
     break;
@@ -602,7 +616,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
             }else if(astar.R2KFS_posi[0]){//外側
                 forestfrontPosi = astar.forestPosi2[0];
                 cubePosi = {-1, 2};
-            }else if(astar.R2KFS_posi[1]){//真ん中　最優先にする
+            }else if(astar.R2KFS_posi[1]){//真ん中 最優先にする
                 forestfrontPosi = astar.forestPosi2[1];
                 cubePosi = {-1, 1};
             }else{//最初の3マスに無かった時→2行目で判断
@@ -612,7 +626,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
                 }else if(astar.R2KFS_posi[3]){//外側
                     forestfrontPosi = astar.forestPosi2[0];
                     cubePosi = {-1, 2};
-                }else if(astar.R2KFS_posi[4]){//真ん中　最優先にする
+                }else if(astar.R2KFS_posi[4]){//真ん中 最優先にする
                     forestfrontPosi = astar.forestPosi2[1];
                     cubePosi = {-1, 1};
                 }else{//とりあえず真ん中
@@ -629,7 +643,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
                 }else if(astar.R2KFS_posi[3]){//外側にあった時
                     forestfrontPosi = astar.forestPosi2[2];
                     cubePosi = {-1, 0};
-                }else if(astar.R2KFS_posi[4]){//真ん中にあるとき　内側を最優先にする→そのあと外側
+                }else if(astar.R2KFS_posi[4]){//真ん中にあるとき 内側を最優先にする→そのあと外側
                     first_center_flag2 = true;
                     forestfrontPosi = astar.forestPosi2[2];
                     cubePosi = {-1, 0};
@@ -697,7 +711,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
                 }else if(astar.R2KFS_posi[3]){//外側
                     forestfrontPosi = astar.forestPosi2[0];
                     cubePosi = {-1, 2};
-                }else if(astar.R2KFS_posi[4]){//真ん中　最優先にする
+                }else if(astar.R2KFS_posi[4]){//真ん中 最優先にする
                     forestfrontPosi = astar.forestPosi2[1];
                     cubePosi = {-1, 1};
                 }else{//とりあえず真ん中
@@ -744,7 +758,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
             // if(!astar.waitobj && !astar.empty_flag){
 
             // }
-            if(astar.dist_plus_x > 0){//rad -> +:右回り　-:左回り
+            if(astar.dist_plus_x > 0){//rad -> +:右回り -:左回り
                 rotate_radian = 0.000;
             }else if(astar.dist_plus_x < 0){
                 rotate_radian = M_PI;
@@ -805,7 +819,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
                     motion.setPathNum(0, 0);
                     setConvPara(0.03, 0.995);
                     //ここで位置補正する．
-                    if(astar.dist_plus_x > 0){//rad -> +:右回り　-:左回り
+                    if(astar.dist_plus_x > 0){//rad -> +:右回り -:左回り
                         // set_para(astar.tar_posi_x - 0.175 - 0.535 - 0.146, astar.tar_posi_y, rotate_radian, 0.3, 3.00, 1.00);//前向きの時
                         set_para(astar.tar_posi_x, astar.tar_posi_y, rotate_radian, 0.3, 3.00, 1.00);
                     }else if(astar.dist_plus_x < 0){//後ろ
@@ -835,7 +849,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
                 }else{
                     motion.setPathNum(0, 0);
                     setConvPara(0.03, 0.995);
-                    // if(astar.dist_plus_x > 0){//rad -> +:右回り　-:左回り
+                    // if(astar.dist_plus_x > 0){//rad -> +:右回り -:左回り
                     //     set_para(astar.tar_posi_x - 0.6 - 0.296, astar.tar_posi_y, rotate_radian, 0.3, 3.00, 1.00);//前向きの時
                     // }else if(astar.dist_plus_x < 0){//後ろ
                     //     set_para(astar.tar_posi_x + 0.6 + 0.296, astar.tar_posi_y, rotate_radian, 0.3, 3.00, 1.00);
@@ -875,7 +889,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
             // }
         // }
     break;
-    case 11://動作　マス移動→段の端に行くまで（上るときは昇降が上がったら移動）
+    case 11://動作 マス移動→段の端に行くまで（上るときは昇降が上がったら移動）
         step_flag = false;
         if(nextIndex == 13){
             if(next_box_state != 2){
@@ -995,7 +1009,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
     break;
     //-----------------------------------------------------------------
     //マス移動のイレギュラー移動しないで現在のマスからとる場合
-    case 30://マスの端に移動（値設定）　phase が12に行かないのでマス自己位置の更新がないから気を付ける．
+    case 30://マスの端に移動（値設定） phase が12に行かないのでマス自己位置の更新がないから気を付ける．
         motion.setPathNum(0, 0);
         setConvPara(0.05, 0.992);
         set_para(astar.tar_posi_x, astar.tar_posi_y, rotate_radian, 0.3, 3.00, 3.00);
@@ -1004,6 +1018,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
     case 31://マスの端に移動
         refV = pathTrackingMode(FOLLOW_COMMAND, 0, 310, DEFAULT);
     break;
+
     case 310://phase 111
         //マニュアル操作-> ここで段越え
         step_flag = true;
@@ -1011,6 +1026,8 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
             phase = 32;
         }
     break;
+    
+    
     case 32://取得したらマスの中心に戻る（値設定）
         motion.setPathNum(0, 0);
         setConvPara(0.05, 0.992);
@@ -1025,7 +1042,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
     break;
     //--------------------------------------------------------
     //初期動作，forestに入らないでKFSの取得
-    case 40://マスの端に移動（値設定）　phase が12に行かないのでマス自己位置の更新がないから気を付ける．
+    case 40://マスの端に移動（値設定） phase が12に行かないのでマス自己位置の更新がないから気を付ける．
         motion.setPathNum(0, 0);
         setConvPara(0.05, 0.992);
         set_para(gPosi.x+0.4, gPosi.y, rotate_radian, 0.3, 3.00, 3.00);
@@ -1145,6 +1162,7 @@ coords AutoControl::getRefVel(unsigned int nextPhase) {
             }  
         }
     break;
+    
     case 640://後ろに下がる．
         if ((nextPhase & PUSH_BUTTON) == PUSH_BUTTON) {
             phase = 60;
